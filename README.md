@@ -1,2 +1,0 @@
-# birucloud
-pipeline demo
