@@ -1,0 +1,34 @@
+stages:
+- name: gobuild
+  steps:
+  - runScriptConfig:
+      image: golang:latest
+      shellScript: |-
+        echo $GOPATH
+        mkdir -p $GOPATH/src/github.com/vipidp
+        ln -s `pwd` $GOPATH/src/github.com/vipidp/example
+        cd $GOPATH/src/github.com/vipidp/example/outyet
+        GOOS=linux GOARCH=amd64 go build -tags netgo -o ./outyet
+        ls
+- name: gotest
+  steps:
+  - runScriptConfig:
+      image: golang:latest
+      shellScript: |-
+        mkdir -p /go/src/github.com/vipidp
+        ln -s `pwd` /go/src/github.com/vipidp/example
+        cd /go/src/github.com/vipidp/example/outyet
+        go test
+- name: publish
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./outyet/Dockerfile
+      buildContext: .
+      tag: test/gohello:{CICD_EXECUTION_SEQUENCE}
+      pushRemote: true
+      registry: hub.birucloud.com
+- name: deployment
+  steps:
+  - applyYamlConfig:
+      path: ./outyet/deployment.yaml
+timeout: 60
