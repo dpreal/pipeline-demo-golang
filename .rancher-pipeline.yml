@@ -6,8 +6,8 @@ stages:
       shellScript: |-
         echo $GOPATH
         mkdir -p $GOPATH/src/github.com/vipidp
-        ln -s `pwd` $GOPATH/src/github.com/vipidp/example
-        cd $GOPATH/src/github.com/vipidp/example/outyet
+        ln -s `pwd` $GOPATH/src/github.com/vipidp/pipeline-demo-golang
+        cd $GOPATH/src/github.com/vipidp/pipeline-demo-golang
         GOOS=linux GOARCH=amd64 go build -tags netgo -o ./outyet
         ls
 - name: gotest
@@ -16,8 +16,8 @@ stages:
       image: golang:latest
       shellScript: |-
         mkdir -p /go/src/github.com/vipidp
-        ln -s `pwd` /go/src/github.com/vipidp/example
-        cd /go/src/github.com/vipidp/example/outyet
+        ln -s `pwd` /go/src/github.com/vipidp/pipeline-demo-golang
+        cd /go/src/github.com/vipidp/pipeline-demo-golang
         go test
 - name: publish
   steps:
