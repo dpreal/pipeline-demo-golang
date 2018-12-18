@@ -22,7 +22,7 @@ stages:
 - name: publish
   steps:
   - publishImageConfig:
-      dockerfilePath: ./outyet/Dockerfile
+      dockerfilePath: ./Dockerfile
       buildContext: .
       tag: test/gohello:{CICD_EXECUTION_SEQUENCE}
       pushRemote: true
@@ -30,5 +30,5 @@ stages:
 - name: deployment
   steps:
   - applyYamlConfig:
-      path: ./outyet/deployment.yaml
+      path: ./deployment.yaml
 timeout: 60
