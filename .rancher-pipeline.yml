@@ -24,7 +24,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: test/gohello:{CICD_EXECUTION_SEQUENCE}
+      tag: test/gohello:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
       registry: hub.birucloud.com
 - name: deployment
